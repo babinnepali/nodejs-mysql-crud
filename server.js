@@ -27,7 +27,7 @@ mySqlPool.query('SELECT 1').then(() => {
     console.log('Connected to the database!')
     
     app.listen(PORT, () => {
-        console.log(`Server is running on http://localhost:${PORT}/test`)
+        console.log(`Server is running on http://localhost:${PORT}`)
     })
 
 

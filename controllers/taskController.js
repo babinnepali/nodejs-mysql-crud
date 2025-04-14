@@ -13,7 +13,7 @@ const getTasks = async(req,res) => {
             success: true,
             message: 'Tasks fetched successfully',
             totalTasks: data.length,
-            data: data[0]
+            data
         })
     }catch(err){
         console.log(err);
@@ -25,36 +25,40 @@ const getTasks = async(req,res) => {
         })
     }
 }
-
-const getTaskById = async(req,res)=>{
-    try{
-        const taskId = req.params.id
-        if(!taskId){
-            return res.status(404).send({
+const getTaskById = async (req, res) => {
+    try {
+        const taskId = req.params.id;
+        if (!taskId) {
+            return res.status(400).send({
                 success: false,
                 message: 'Task ID is required'
-            })
+            });
         }
+
         const [data] = await db.query('SELECT * FROM tasks WHERE id = ?', [taskId]);
-        if(!data){
+
+        if (!data || data.length === 0) {
             return res.status(404).send({
                 success: false,
                 message: 'No record found'
-            })
+            });
         }
+
         res.status(200).send({
             success: true,
-            studentdetails: data[0]
-        })
-    }catch(err){
+            data: data[0] // return the first matching row
+        });
+
+    } catch (err) {
         console.log(err);
         res.status(500).send({
             success: false,
             message: 'Error fetching task',
-            error
-        })
+            error: err.message
+        });
     }
-}
+};
+
 
 const createTask = async(req,res) =>{
     try{
