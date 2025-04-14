@@ -2,12 +2,17 @@ const express = require('express');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const mySqlPool = require('./config/db');
-
+const cors = require('cors');
 
 dotenv.config();
-
-
 const app = express();
+app.use(cors({
+
+    origin: 'http://localhost:5173',
+}
+));
+
+
 app.use(express.json());
 app.use(morgan('dev'));
 
