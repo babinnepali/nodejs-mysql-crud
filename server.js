@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.use('/api/v1/tasks', require('./routes/taskRoutes.js'));
+app.use('/tasks', require('./routes/taskRoutes.js'));
 
 
 
